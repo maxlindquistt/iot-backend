@@ -1,5 +1,5 @@
-const mqtt = require('mqtt');
-const { insertReading } = require('./db');
+import mqtt from 'mqtt';
+import { insertReading } from './db.js';
 
 const TOPIC_SENSOR = 'lnu/iot/ml227cu/sensor';
 const TOPIC_COMMAND = 'lnu/iot/ml227cu/command/led';
@@ -8,8 +8,8 @@ let client;
 
 function initMqtt(io) {
     client = mqtt.connect('mqtts://f88eef6f2b6e40b39987e53cd1236bf5.s1.eu.hivemq.cloud:8883', {
-        username: 'YOUR_USERNAME',
-        password: 'YOUR_PASSWORD',
+        username: process.env.MQTT_USERNAME,
+        password: process.env.MQTT_PASSWORD,
         rejectUnauthorized: true
     });
 
@@ -36,4 +36,4 @@ function sendCommand(state) {
     client.publish(TOPIC_COMMAND, JSON.stringify({ state }));
 }
 
-module.exports = { initMqtt, sendCommand };
+export { initMqtt, sendCommand };
