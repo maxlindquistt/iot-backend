@@ -1,5 +1,5 @@
-const mqtt = require('mqtt');
-const { insertReading } = require('./db');
+import mqtt from 'mqtt';
+import { insertReading } from './db.js';
 
 const MQTT_BROKER = 'mqtt://broker.hivemq.com';
 const TOPIC_SENSOR = 'lnu/iot/ml227cu/sensor';
@@ -29,4 +29,4 @@ function sendCommand(state) {
     client.publish(TOPIC_COMMAND, JSON.stringify({ state }));
 }
 
-module.exports = { initMqtt, sendCommand };
+export { initMqtt, sendCommand };

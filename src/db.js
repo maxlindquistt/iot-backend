@@ -1,4 +1,5 @@
-const Database = require('better-sqlite3');
+import Database from 'better-sqlite3';
+
 const db = new Database('data.db');
 
 db.exec(`
@@ -20,4 +21,4 @@ function getHistory(limit = 50) {
     return db.prepare('SELECT * FROM sensor_data ORDER BY id DESC LIMIT ?').all(limit);
 }
 
-module.exports = { insertReading, getHistory };
+export { insertReading, getHistory };

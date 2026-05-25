@@ -1,7 +1,8 @@
-const express = require('express');
+import express from 'express';
+import { getHistory } from './db.js';
+import { sendCommand } from './mqttHandler.js';
+
 const router = express.Router();
-const { getHistory } = require('./db');
-const { sendCommand } = require('./mqttHandler');
 
 router.get('/history', (req, res) => {
     const data = getHistory(50);
@@ -14,4 +15,4 @@ router.post('/command/led', (req, res) => {
     res.json({ ok: true });
 });
 
-module.exports = router;
+export default router;
