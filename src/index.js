@@ -4,6 +4,9 @@ import http from 'http';
 import { Server } from 'socket.io';
 import { initMqtt } from './mqttHandler.js';
 import routes from './routes/routes.js';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const app = express();
 const server = http.createServer(app);
