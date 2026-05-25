@@ -1,6 +1,6 @@
 import express from 'express';
-import { getHistory } from './db.js';
-import { sendCommand } from './mqttHandler.js';
+import { getHistory } from '../db.js';
+import { sendCommand } from '../mqttHandler.js';
 
 const router = express.Router();
 
