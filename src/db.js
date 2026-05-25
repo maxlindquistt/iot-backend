@@ -1,0 +1,23 @@
+const Database = require('better-sqlite3');
+const db = new Database('data.db');
+
+db.exec(`
+  CREATE TABLE IF NOT EXISTS sensor_data (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    value REAL,
+    humidity REAL,
+    timestamp INTEGER,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+  )
+`);
+
+function insertReading(value, humidity, timestamp) {
+    const stmt = db.prepare('INSERT INTO sensor_data (value, humidity, timestamp) VALUES (?, ?, ?)');
+    stmt.run(value, humidity, timestamp);
+}
+
+function getHistory(limit = 50) {
+    return db.prepare('SELECT * FROM sensor_data ORDER BY id DESC LIMIT ?').all(limit);
+}
+
+module.exports = { insertReading, getHistory };
