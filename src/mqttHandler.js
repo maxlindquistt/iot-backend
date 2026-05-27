@@ -22,8 +22,8 @@ function initMqtt(io) {
         if (topic === TOPIC_SENSOR) {
             const data = JSON.parse(message.toString());
             console.log('Received:', data);
-            insertReading(data.value, data.humidity, data.timestamp);
-            io.emit('sensor_data', data);
+            const created_at = insertReading(data.value, data.humidity, data.timestamp);
+            io.emit('sensor_data', { ...data, created_at });
         }
     });
 
